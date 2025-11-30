@@ -10,7 +10,7 @@ interface PlaygroundProps {
   apiKey?: string;
 }
 
-export const Playground: React.FC = ({ apiKey }) => {
+export const Playground: React.FC<PlaygroundProps> = ({ apiKey }) => {
   const [prompt, setPrompt] = useState('');
   const [loading, setLoading] = useState(false);
   const [modelName, setModelName] = useState('gemini-2.5-flash');

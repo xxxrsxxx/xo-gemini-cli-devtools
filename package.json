@@ -1,6 +1,7 @@
 {
   "name": "xo-gemini-cli-devtools",
-  "version": "1.0.0",
+  "version": "1.0.6",
+  "type": "module",
   "description": "A developer widget for debugging, monitoring, and visualizing Gemini CLI operations.",
   "main": "./dist/xo-gemini-cli-devtools.umd.js",
   "module": "./dist/xo-gemini-cli-devtools.es.js",
@@ -13,8 +14,13 @@
       "import": "./dist/xo-gemini-cli-devtools.es.js",
       "require": "./dist/xo-gemini-cli-devtools.umd.js"
     },
-    "./style.css": "./dist/style.css"
+    "./style.css": "./dist/style.css",
+    "./dist/style.css": "./dist/style.css"
   },
+  "style": "./dist/style.css",
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -41,7 +47,6 @@
     "recharts": "^3.5.1"
   },
   "devDependencies": {
-    "@types/node": "^24.10.1",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.3.4",

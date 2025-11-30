@@ -17,7 +17,7 @@ React 프로젝트의 최상위 컴포넌트(예: `App.tsx` 또는 `main.tsx`)�
 ```tsx
 import React from 'react';
 import { DevToolsWidget } from 'xo-gemini-cli-devtools';
-import 'xo-gemini-cli-devtools/dist/style.css'; // 스타일 import 필수
+import 'xo-gemini-cli-devtools/style.css'; // 스타일 import 필수
 
 function App() {
   return (
@@ -30,6 +30,43 @@ function App() {
     </div>
   );
 }
+```
+
+#### API 키 전달
+`process.env`를 사용하기 어려운 환경이거나 명시적으로 키를 전달하고 싶다면 `apiKey` prop을 사용하세요.
+
+```tsx
+import { DevToolsWidget } from 'xo-gemini-cli-devtools';
+import 'xo-gemini-cli-devtools/style.css';
+
+function App() {
+  // .env 파일이나 다른 소스에서 API 키를 가져옵니다.
+  const myApiKey = process.env.REACT_APP_GEMINI_API_KEY;
+
+  return (
+    <div>
+      {/* ... */}
+      <DevToolsWidget apiKey={myApiKey} />
+    </div>
+  );
+}
+```
+
+```
+
+### 환경 설정 (Environment Configuration)
+
+이 위젯은 기본적으로 **개발 환경(Development Environment)**에서만 렌더링되도록 설계되었습니다.
+`process.env.NODE_ENV !== 'production'`일 때만 화면에 표시됩니다.
+
+만약 프로덕션 환경(Staging 등)에서 강제로 활성화하고 싶다면 `enabled` 속성을 사용하세요.
+
+```tsx
+// 항상 활성화 (주의: 실제 서비스 사용자에게 노출될 수 있음)
+<DevToolsWidget enabled={true} />
+
+// 특정 조건에서만 활성화 (예: 관리자)
+<DevToolsWidget enabled={isAdminUser} />
 ```
 
 ## 🛠 배포 스크립트

@@ -6,7 +6,11 @@ import { LogLevel, ChatMessage, SavedCommand } from '../types';
 import { Loader2, Key, Save, Trash2, MessageSquare, Book, X, ChevronRight, Send, Plus } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
-export const Playground: React.FC = () => {
+interface PlaygroundProps {
+  apiKey?: string;
+}
+
+export const Playground: React.FC = ({ apiKey }) => {
   const [prompt, setPrompt] = useState('');
   const [loading, setLoading] = useState(false);
   const [modelName, setModelName] = useState('gemini-2.5-flash');
@@ -61,7 +65,7 @@ export const Playground: React.FC = () => {
     setPrompt(''); // Clear input immediately
     monitor.addChatMessage('user', currentPrompt);
 
-    if (!process.env.API_KEY) {
+    if (!apiKey) {
       monitor.addLog(t('playground.simulationLog'), LogLevel.WARN, 'SYSTEM');
       await simulateResponse(currentPrompt);
       return;
@@ -74,7 +78,7 @@ export const Playground: React.FC = () => {
     const startTime = Date.now();
 
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const ai = new GoogleGenAI({ apiKey: apiKey });
       const result = await ai.models.generateContent({
         model: modelName,
         contents: currentPrompt,
@@ -181,8 +185,8 @@ export const Playground: React.FC = () => {
             </button>
             <div className="h-4 w-px bg-gray-700"></div>
             <div className="flex items-center gap-1 text-xs text-gray-500">
-              <Key size={12} className={process.env.API_KEY ? "text-green-500" : "text-yellow-500"} />
-              <span className="hidden sm:inline">{process.env.API_KEY ? t('playground.apiKeyActive') : t('playground.simulationMode')}</span>
+              <Key size={12} className={apiKey ? "text-green-500" : "text-yellow-500"} />
+              <span className="hidden sm:inline">{apiKey ? t('playground.apiKeyActive') : t('playground.simulationMode')}</span>
             </div>
           </div>
         </div>

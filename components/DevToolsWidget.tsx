@@ -150,7 +150,7 @@ const WidgetContent: React.FC<DevToolsWidgetProps> = ({ enabled, apiKey }) => {
               <div className="flex-1 overflow-hidden relative text-left">
                 {activeTab === TabView.CONSOLE && <Console />}
                 {activeTab === TabView.METRICS && <Metrics />}
-                {activeTab === TabView.PLAYGROUND && <Playground />}
+                {activeTab === TabView.PLAYGROUND && <Playground apiKey={apiKey} />}
                 {activeTab === TabView.STATE && (
                     <div className="p-4 font-mono text-sm text-gray-300 h-full overflow-auto">
                       <pre>{JSON.stringify(state, null, 2)}</pre>

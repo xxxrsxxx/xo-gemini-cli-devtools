@@ -1,0 +1,55 @@
+{
+  "name": "xo-gemini-cli-devtools",
+  "version": "1.0.0",
+  "description": "A developer widget for debugging, monitoring, and visualizing Gemini CLI operations.",
+  "main": "./dist/xo-gemini-cli-devtools.umd.js",
+  "module": "./dist/xo-gemini-cli-devtools.es.js",
+  "types": "./dist/lib.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/xo-gemini-cli-devtools.es.js",
+      "require": "./dist/xo-gemini-cli-devtools.umd.js"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "gemini",
+    "google-genai",
+    "devtools",
+    "cli",
+    "react",
+    "debug"
+  ],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "dependencies": {
+    "@google/genai": "^1.30.0",
+    "lucide-react": "^0.555.0",
+    "recharts": "^3.5.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^3.4.17",
+    "typescript": "~5.7.2",
+    "vite": "^6.1.0",
+    "vite-plugin-dts": "^4.5.0"
+  }
+}

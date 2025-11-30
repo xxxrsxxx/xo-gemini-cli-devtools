@@ -1,4 +1,3 @@
-import React from 'react';
 import { DevToolsWidget } from './components/DevToolsWidget';
 
 // In a real usage scenario (npm package), the user would just import <GeminiDevTools />
@@ -6,7 +5,7 @@ import { DevToolsWidget } from './components/DevToolsWidget';
 function App() {
   return (
     <div className="min-h-screen bg-neutral-900 flex flex-col items-center justify-center p-8">
-      
+
       {/* Host App Content Simulation */}
       <div className="max-w-3xl w-full text-center space-y-8">
         <div className="space-y-4">

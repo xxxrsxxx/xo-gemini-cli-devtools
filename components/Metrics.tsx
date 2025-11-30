@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
 import { MetricPoint } from '../types';
 import { monitor } from '../services/monitor';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -56,13 +56,13 @@ export const Metrics: React.FC = () => {
               <XAxis dataKey="time" stroke="#4b5563" fontSize={10} tickLine={false} axisLine={false} />
               <YAxis stroke="#4b5563" fontSize={10} tickLine={false} axisLine={false} />
               <Tooltip content={<CustomTooltip />} />
-              <Area 
-                type="monotone" 
-                dataKey="latency" 
-                stroke="#3b82f6" 
+              <Area
+                type="monotone"
+                dataKey="latency"
+                stroke="#3b82f6"
                 strokeWidth={2}
-                fillOpacity={1} 
-                fill="url(#colorLatency)" 
+                fillOpacity={1}
+                fill="url(#colorLatency)"
                 isAnimationActive={false}
               />
             </AreaChart>
@@ -83,9 +83,9 @@ export const Metrics: React.FC = () => {
               <XAxis dataKey="time" stroke="#4b5563" fontSize={10} tickLine={false} axisLine={false} />
               <YAxis stroke="#4b5563" fontSize={10} tickLine={false} axisLine={false} />
               <Tooltip content={<CustomTooltip />} />
-              <Bar 
-                dataKey="tokens" 
-                fill="#a855f7" 
+              <Bar
+                dataKey="tokens"
+                fill="#a855f7"
                 radius={[4, 4, 0, 0]}
                 isAnimationActive={false}
               />

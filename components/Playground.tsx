@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { GoogleGenAI } from "@google/genai";
 import { monitor } from '../services/monitor';
 import { LogLevel, ChatMessage, SavedCommand } from '../types';
-import { Play, Loader2, Key, Save, Trash2, MessageSquare, Book, X, ChevronRight, Send, Plus } from 'lucide-react';
+import { Loader2, Key, Save, Trash2, MessageSquare, Book, X, ChevronRight, Send, Plus } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 export const Playground: React.FC = () => {
@@ -15,7 +15,7 @@ export const Playground: React.FC = () => {
   const [showSidebar, setShowSidebar] = useState(true);
   const [showSaveDialog, setShowSaveDialog] = useState(false);
   const [newCommandName, setNewCommandName] = useState('');
-  
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { t } = useLanguage();
 
@@ -37,17 +37,17 @@ export const Playground: React.FC = () => {
     setLoading(true);
     monitor.addLog(`Starting simulation for model: ${modelName}`, LogLevel.INFO, 'API', { prompt: userPrompt });
     monitor.updateState({ status: 'RUNNING', currentCommand: 'generateContent' });
-    
+
     const startTime = Date.now();
     await new Promise(r => setTimeout(r, 1000)); // Faster simulation for chat feel
-    
+
     const simulatedText = t('playground.simulatedResponse');
     monitor.addChatMessage('model', simulatedText);
-    
+
     const endTime = Date.now();
     const duration = endTime - startTime;
     const estimatedTokens = Math.ceil(simulatedText.length / 4);
-    
+
     monitor.addLog('Received response from simulated backend', LogLevel.SUCCESS, 'API', { duration: `${duration}ms`, tokens: estimatedTokens });
     monitor.addMetric(duration, estimatedTokens, modelName);
     monitor.updateState({ status: 'IDLE', currentCommand: null });
@@ -56,7 +56,7 @@ export const Playground: React.FC = () => {
 
   const handleSend = async () => {
     if (!prompt.trim()) return;
-    
+
     const currentPrompt = prompt;
     setPrompt(''); // Clear input immediately
     monitor.addChatMessage('user', currentPrompt);
@@ -82,7 +82,7 @@ export const Playground: React.FC = () => {
 
       const text = result.text || t('playground.noText');
       monitor.addChatMessage('model', text);
-      
+
       const endTime = Date.now();
       const duration = endTime - startTime;
       const tokenCount = result.usageMetadata?.totalTokenCount || Math.ceil((currentPrompt.length + text.length) / 4);
@@ -123,7 +123,7 @@ export const Playground: React.FC = () => {
             <X size={14} />
           </button>
         </div>
-        
+
         <div className="flex-1 overflow-y-auto p-2 space-y-2">
           {savedCommands.length === 0 ? (
             <div className="text-center text-gray-600 text-xs py-8">
@@ -134,7 +134,7 @@ export const Playground: React.FC = () => {
               <div key={cmd.id} className="group bg-gray-800/50 hover:bg-gray-800 border border-gray-700/50 hover:border-gray-600 rounded-lg p-3 cursor-pointer transition-all" onClick={() => handleLoadCommand(cmd)}>
                 <div className="flex justify-between items-start mb-1">
                   <span className="text-gray-200 font-medium text-xs line-clamp-1">{cmd.name}</span>
-                  <button 
+                  <button
                     onClick={(e) => { e.stopPropagation(); monitor.deleteCommand(cmd.id); }}
                     className="text-gray-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
                   >
@@ -160,7 +160,7 @@ export const Playground: React.FC = () => {
             )}
             <div className="flex items-center gap-2 text-xs text-gray-400">
                <span className="font-bold uppercase tracking-wider text-gray-500">{t('playground.modelLabel')}</span>
-               <select 
+               <select
                  value={modelName}
                  onChange={(e) => setModelName(e.target.value)}
                  className="bg-transparent text-gray-200 focus:outline-none hover:text-white transition-colors"
@@ -172,7 +172,7 @@ export const Playground: React.FC = () => {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <button 
+            <button
               onClick={() => monitor.clearChat()}
               className="text-gray-500 hover:text-red-400 text-xs flex items-center gap-1 transition-colors"
             >
@@ -239,7 +239,7 @@ export const Playground: React.FC = () => {
               <button onClick={() => setShowSaveDialog(false)} className="text-gray-400 hover:bg-gray-700 p-1.5 rounded"><X size={16} /></button>
             </div>
           ) : null}
-          
+
           <div className="relative">
             <textarea
               value={prompt}
@@ -253,11 +253,11 @@ export const Playground: React.FC = () => {
               placeholder={t('playground.promptPlaceholder')}
               className="w-full bg-gray-950 border border-gray-700 rounded-xl pl-4 pr-24 py-3 text-gray-200 font-mono text-sm focus:border-blue-500 focus:outline-none resize-none placeholder-gray-600 max-h-32 min-h-[50px]"
               rows={1}
-              style={{ minHeight: '52px' }} 
+              style={{ minHeight: '52px' }}
             />
             <div className="absolute right-2 bottom-2 flex items-center gap-1">
               {prompt.trim() && !showSaveDialog && (
-                <button 
+                <button
                   onClick={() => setShowSaveDialog(true)}
                   className="p-1.5 text-gray-500 hover:text-blue-400 hover:bg-blue-400/10 rounded-lg transition-colors"
                   title={t('playground.saveCommandTitle')}

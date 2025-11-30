@@ -1,6 +1,6 @@
 {
   "name": "xo-gemini-cli-devtools",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "type": "module",
   "description": "A developer widget for debugging, monitoring, and visualizing Gemini CLI operations.",
   "main": "./dist/xo-gemini-cli-devtools.umd.js",
